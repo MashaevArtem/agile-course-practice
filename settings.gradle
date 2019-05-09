@@ -453,3 +453,11 @@ include "code/zharikov_alexey_HashMap/View"
 project(":code/zharikov_alexey_HashMap/View").name = "MyHashMap-View"
 include "code/zharikov_alexey_HashMap/Infrastructure"
 project(":code/zharikov_alexey_HashMap/Infrastructure").name = "MyHashMap-Infrastructure"
+
+// Mashaev, radix srot
+include "code/radix-sort/Model"
+project(":code/radix-sort/Model").name = "radix-sort"
+include "code/radix-sort/ViewModel"
+project(":code/radix-sort/ViewModel").name = "radix-sort-ViewModel"
+include "code/radix-sort/View"
+project(":code/radix-sort/View").name = "radix-sort-View"
