@@ -5,8 +5,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import ru.unn.agile.Radix.Model.RadixSort;
-import ru.unn.agile.Radix.Model.RadixNode;
+import ru.unn.agile.Radix.model.RadixSort;
+import ru.unn.agile.Radix.model.RadixNode;
 
 public class ViewModel 
 {
@@ -50,7 +50,7 @@ public class ViewModel
      {
         try 
         {
-        RBNode<Integer, String> found = tree.find(Integer.parseInt(key.get()));
+        RadixNode<Integer, String> found = tree.find(Integer.parseInt(key.get()));
 
         if (found != null) 
         {
