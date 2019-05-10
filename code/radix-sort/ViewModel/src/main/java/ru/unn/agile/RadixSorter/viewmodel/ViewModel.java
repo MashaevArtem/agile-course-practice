@@ -15,8 +15,8 @@ public class ViewModel {
     private boolean isClearButtonEnabled;
     private boolean isSortButtonEnabled;
 
-    private List<Integer> sortedArray = new ArrayList<Integer>();
-    private List<Integer> inputArray = new ArrayList<Integer>();
+    private List<int> sortedArray = new ArrayList<int>();
+    private List<int> inputArray = new ArrayList<int>();
 
     public ViewModel() {
         inputValue = "";
@@ -54,7 +54,7 @@ public class ViewModel {
             return;
         }
 
-        double value = Double.parseDouble(inputValue);
+        int value = int.parseDouble(inputValue);
         sortedArray.add(value);
         inputArray.add(value);
         changeButtonsEnabling();
@@ -72,7 +72,7 @@ public class ViewModel {
     }
 
     public void sort() {
-        Integer[] nativeArray = new Integer[sortedArray.size()];
+        int[] nativeArray = new int[sortedArray.size()];
         sortedArray.toArray(nativeArray);
 
         RadixSorter.sort(nativeArray);
@@ -113,7 +113,7 @@ public class ViewModel {
         }
 
         try {
-            Double.parseDouble(inputValue);
+            int.parseDouble(inputValue);
             status = Status.READY;
             isAddButtonEnabled = true;
         } catch (Exception e) {
