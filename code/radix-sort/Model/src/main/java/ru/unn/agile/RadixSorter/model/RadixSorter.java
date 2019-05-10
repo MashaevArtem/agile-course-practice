@@ -8,26 +8,26 @@ import java.util.List;
 
 public class RadixSorter {
 
-    public static final int DEFAULT_RADIX = 10;
+    public static final double DEFAULT_RADIX = 10;
 
-    public static void sort(int[] arr) {
+    public static void sort(double[] arr) {
         sort(arr, DEFAULT_RADIX);
     }
 
-    public static void sort(int[] arr, int radix) {
+    public static void sort(double[] arr, double radix) {
         int maxDigits = 1 + (int) (Math.log(max(arr)) / Math.log(radix));
         int divisor = 1;
         for (int pos = 0; pos < maxDigits; ++pos) {
-            List<List<Integer>> buckets = splitToBuckets(arr, divisor, radix);
+            List<List<Double>> buckets = splitToBuckets(arr, divisor, radix);
             flattenBuckets(arr, buckets);
             divisor *= radix;
         }
-        List<List<Integer>> buckets = splitBySign(arr);
+        List<List<Double>> buckets = splitBySign(arr);
         flattenBuckets(arr, buckets);
     }
 
-    private static List<List<Integer>> splitToBuckets(int[] arr, int divisor, int radix) {
-        List<List<Integer>> buckets = new ArrayList<>();
+    private static List<List<Double>> splitToBuckets(double[] arr, int divisor, double radix) {
+        List<List<Double>> buckets = new ArrayList<>();
         for (int i = 0; i < radix; ++i) {
             buckets.add(new LinkedList<>());
         }
@@ -38,9 +38,9 @@ public class RadixSorter {
         return buckets;
     }
 
-    private static List<List<Integer>> splitBySign(int[] arr) {
-        List<Integer> positive = new LinkedList<>();
-        List<Integer> negative = new LinkedList<>();
+    private static List<List<Double>> splitBySign(double[] arr) {
+        List<Double> positive = new LinkedList<>();
+        List<Double> negative = new LinkedList<>();
         for (int num : arr) {
             if (num >= 0) {
                 positive.add(num);
@@ -51,17 +51,17 @@ public class RadixSorter {
         return Arrays.asList(negative, positive);
     }
 
-    private static void flattenBuckets(int[] arr, List<? extends List<Integer>> buckets) {
+    private static void flattenBuckets(double[] arr, List<? extends List<Double>> buckets) {
         int i = 0;
-        for (List<Integer> bucket : buckets) {
+        for (List<Double> bucket : buckets) {
             for (int num : bucket) {
                 arr[i++] = num;
             }
         }
     }
 
-    private static int max(int[] arr) {
-        int max = Integer.MIN_VALUE;
+    private static double max(double[] arr) {
+        double max = Double.MIN_VALUE;
         for (int num : arr) {
             if (num > max) {
                 max = num;
