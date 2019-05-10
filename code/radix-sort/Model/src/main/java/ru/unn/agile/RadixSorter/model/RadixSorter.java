@@ -1,9 +1,10 @@
+package ru.unn.agile.radixsorter.model;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-package ru.unn.agile.radixsorter.model;
 
 public class RadixSorter {
 
