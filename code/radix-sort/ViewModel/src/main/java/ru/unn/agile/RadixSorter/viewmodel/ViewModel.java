@@ -75,7 +75,7 @@ public class ViewModel {
         Double[] nativeArray = new Double[sortedArray.size()];
         sortedArray.toArray(nativeArray);
 
-        RadixSorter.sort(nativeArray);
+        ArraySorter.sort(nativeArray);
 
         for (int i = 0; i < nativeArray.length; ++i) {
             sortedArray.set(i, nativeArray[i]);
