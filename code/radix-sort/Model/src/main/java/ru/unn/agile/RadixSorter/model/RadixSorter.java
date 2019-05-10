@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+package ru.unn.agile.radixsorter.model;
+
 public class RadixSorter {
 
     public static final int DEFAULT_RADIX = 10;
