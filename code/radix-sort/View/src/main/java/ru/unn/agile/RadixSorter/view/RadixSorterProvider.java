@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.List;
 
 public final class RadixSorterProvider {
 
@@ -20,13 +19,10 @@ public final class RadixSorterProvider {
     private JTextArea sortedArrayArea;
     private JLabel statusLabel;
     private JLabel sourceArrayLabel;
-    private JList<String> listLog;
-    private static final String FILEPATH = "RadixSorter.log";
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("RadixSorterProvider");
-        TextLogger logger = new TextLogger(FILEPATH);
-        frame.setContentPane(new RadixSorterProvider(new ViewModel(logger)).mainPanel);
+        frame.setContentPane(new RadixSorterProvider(new ViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -67,7 +63,7 @@ public final class RadixSorterProvider {
             @Override
             public void keyReleased(final KeyEvent e) {
                 bind();
-                RadixSorterProvider.this.viewModel.processingAddField();
+                RadixSorterProvider.this.viewModel.processingAddField(e.getKeyCode());
                 backBind();
             }
         };
@@ -84,12 +80,8 @@ public final class RadixSorterProvider {
         sortArrayButton.setEnabled(viewModel.isSortButtonEnabled());
         clearArrayButton.setEnabled(viewModel.isClearButtonEnabled());
 
-        sourceArrayLabel.setText(viewModel.getInputArrayStringRepresentation());
-        sortedArrayArea.setText(viewModel.getSortedArrayStringRepresentation());
+        sourceArrayLabel.setText(viewModel.getSortedArrayStringRepresentation());
+        sortedArrayArea.setText(viewModel.getInputArrayStringRepresentation());
         statusLabel.setText(viewModel.getCurrentState());
-
-        List<String> log = viewModel.getLog();
-        String[] items = log.toArray(new String[log.size()]);
-        listLog.setListData(items);
     }
 }

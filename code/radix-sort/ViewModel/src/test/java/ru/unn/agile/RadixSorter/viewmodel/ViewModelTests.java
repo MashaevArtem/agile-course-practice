@@ -6,28 +6,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ViewModelTests {
-
     private ViewModel viewModel;
 
     @Before
     public void setUp() {
-        FakeLogger fakeLogger = new FakeLogger();
-        viewModel = new ViewModel(fakeLogger);
+        viewModel = new ViewModel();
     }
 
     @After
     public void tearDown() {
         viewModel = null;
-    }
-
-    public void setViewModel(final ViewModel vM) {
-        this.viewModel = vM;
     }
 
     @Test
@@ -40,22 +31,22 @@ public class ViewModelTests {
 
     @Test
     public void canAddOneElementToArray() {
-        viewModel.setInputValue("3.0");
+        viewModel.setInputValue("3");
         viewModel.addProcess();
 
-        assertEquals("[3.0]", viewModel.getInputArrayStringRepresentation());
+        assertEquals("[3]", viewModel.getInputArrayStringRepresentation());
     }
 
     @Test
     public void canAddSeveralElementsToArray() {
-        viewModel.setInputValue("-5.0");
+        viewModel.setInputValue("-5");
         viewModel.addProcess();
-        viewModel.setInputValue("4.0");
+        viewModel.setInputValue("4");
         viewModel.addProcess();
-        viewModel.setInputValue("2.75");
+        viewModel.setInputValue("2");
         viewModel.addProcess();
 
-        assertEquals("[-5.0, 4.0, 2.75]", viewModel.getInputArrayStringRepresentation());
+        assertEquals("[-5, 4, 2]", viewModel.getInputArrayStringRepresentation());
     }
 
     @Test
@@ -78,26 +69,26 @@ public class ViewModelTests {
 
     @Test
     public void  canSortOfArrayWithOneElement() {
-        viewModel.setInputValue("-4.0");
+        viewModel.setInputValue("-4");
         viewModel.addProcess();
 
         viewModel.sort();
 
-        assertEquals("[-4.0]", viewModel.getSortedArrayStringRepresentation());
+        assertEquals("[-4]", viewModel.getSortedArrayStringRepresentation());
     }
 
     @Test
     public void  canSortOfNonSortedBigArray() {
-        viewModel.setInputValue("-4.0");
+        viewModel.setInputValue("-4");
         viewModel.addProcess();
-        viewModel.setInputValue("-0.4");
+        viewModel.setInputValue("0");
         viewModel.addProcess();
-        viewModel.setInputValue("3.1");
+        viewModel.setInputValue("3");
         viewModel.addProcess();
 
         viewModel.sort();
 
-        assertEquals("[-4.0, -0.4, 3.1]", viewModel.getSortedArrayStringRepresentation());
+        assertEquals("[-4, 0, 3]", viewModel.getSortedArrayStringRepresentation());
     }
 
     @Test
@@ -114,16 +105,16 @@ public class ViewModelTests {
     public void isWaitingStateWhenAddAndDelElemEmptyField() {
         viewModel.setInputValue("");
 
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
 
         assertEquals(Status.WAITING, viewModel.getCurrentState());
     }
 
     @Test
     public void isReadyStateWhenAddElemFieldIsWriteIn() {
-        viewModel.setInputValue("6.1");
+        viewModel.setInputValue("6");
 
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
 
         assertEquals(Status.READY, viewModel.getCurrentState());
     }
@@ -132,18 +123,18 @@ public class ViewModelTests {
     public void canSetBadFormatMessage() {
         viewModel.setInputValue("b");
 
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
 
         assertEquals(Status.BAD_FORMAT, viewModel.getCurrentState());
     }
 
     @Test
     public void canSetSuccessMessage() {
-        viewModel.setInputValue("-1.0");
+        viewModel.setInputValue("-1");
         viewModel.addProcess();
-        viewModel.setInputValue("2.0");
+        viewModel.setInputValue("2");
         viewModel.addProcess();
-        viewModel.setInputValue("5.4");
+        viewModel.setInputValue("5");
 
         viewModel.sort();
 
@@ -167,8 +158,8 @@ public class ViewModelTests {
 
     @Test
     public void isAddButtonEnabledAddElemFieldIsCorrect() {
-        viewModel.setInputValue("1.2");
-        viewModel.processingAddField();
+        viewModel.setInputValue("1");
+        viewModel.processingAddField(1);
 
         assertEquals(true, viewModel.isAddButtonEnabled());
     }
@@ -176,7 +167,7 @@ public class ViewModelTests {
     @Test
     public void isAddButtonDisabledWhenAddElemFieldIsEmpty() {
         viewModel.setInputValue("");
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
 
         assertEquals(false, viewModel.isAddButtonEnabled());
     }
@@ -184,7 +175,7 @@ public class ViewModelTests {
     @Test
     public void isAddButtonDisabledWhenAddElemIsInvalid() {
         viewModel.setInputValue("ijijfdf");
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
 
         assertEquals(false, viewModel.isAddButtonEnabled());
     }
@@ -251,95 +242,30 @@ public class ViewModelTests {
     @Test
     public void canChangeStateIfAddElemFieldIsCorrect() {
         viewModel.setInputValue("test");
-        viewModel.processingAddField();
-        viewModel.setInputValue("12.1");
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
+        viewModel.setInputValue("12");
+        viewModel.processingAddField(1);
 
         assertEquals(Status.READY, viewModel.getCurrentState());
     }
 
     @Test
     public void canChangeStateIfAddElemFieldIsInvalid() {
-        viewModel.setInputValue("12.1");
-        viewModel.processingAddField();
+        viewModel.setInputValue("12");
+        viewModel.processingAddField(1);
         viewModel.setInputValue("test");
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
 
         assertEquals(Status.BAD_FORMAT, viewModel.getCurrentState());
     }
 
     @Test
     public void canChangeStateIfAddElemFieldIsEmpty() {
-        viewModel.setInputValue("12.1");
-        viewModel.processingAddField();
+        viewModel.setInputValue("12");
+        viewModel.processingAddField(1);
         viewModel.setInputValue("");
-        viewModel.processingAddField();
+        viewModel.processingAddField(1);
 
         assertEquals(Status.WAITING, viewModel.getCurrentState());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void throwsViewModelWhenLoggerIsNull() {
-        FakeLogger logger = null;
-
-        new ViewModel(logger);
-    }
-
-    @Test
-    public void canConstructViewModelWhenLoggerIsNotNull() {
-        FakeLogger logger = new FakeLogger();
-
-        new ViewModel(logger);
-    }
-
-    @Test
-    public void isLoggerEmptyWhenStartup() {
-        final int expected = 0;
-        List<String> log = viewModel.getLog();
-
-        assertEquals(expected, log.size());
-    }
-
-    @Test
-    public void isLogUpdatedWhenAddToArray() {
-        viewModel.setInputValue("10");
-
-        viewModel.addProcess();
-
-        String message = viewModel.getLog().get(0);
-        assertTrue(message.matches(".*" + ViewModel.ADD_LOG + viewModel.getElemArray() + ".*"));
-    }
-
-    @Test
-    public void isLogUpdatedWhenClearArray() {
-        viewModel.clearProcess();
-
-        String message = viewModel.getLog().get(0);
-        assertTrue(message.matches(".*" + ViewModel.CLEAR_LOG + ".*"));
-    }
-
-    @Test
-    public void isLogUpdatedWhenSortArray() {
-        viewModel.setInputValue("10");
-        viewModel.addProcess();
-        viewModel.setInputValue("-3.4");
-        viewModel.addProcess();
-        viewModel.setInputValue("9");
-        viewModel.addProcess();
-
-        viewModel.sort();
-
-        List<String> log = viewModel.getLog();
-        String message = log.get(log.size() - 1);
-        assertTrue(message.matches(".*" + viewModel.getSortedArrayStringRepresentation() + ".*"));
-    }
-
-    @Test
-    public void isLogUpdatedWhenNewInputElemHasBadFormat() {
-        viewModel.setInputValue("hello");
-        viewModel.processingAddField();
-
-        String message = viewModel.getLog().get(0);
-        assertTrue(message.matches(".*" + Status.BAD_FORMAT + ".*"));
     }
 }

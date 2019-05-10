@@ -1,6 +1,6 @@
 package ru.unn.agile.RadixSorter.viewmodel;
 
-import ru.unn.agile.radixsorter.model.RadixSorter;
+import ru.unn.agile.radixsorter.model.radixSorter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +15,10 @@ public class ViewModel {
     private boolean isClearButtonEnabled;
     private boolean isSortButtonEnabled;
 
-    private List<Double> sortedArray = new ArrayList<>();
-    private List<Double> inputArray = new ArrayList<>();
-	
-    public static final String ADD_LOG = "Added new element to array. The element: ";
-    public static final String CLEAR_LOG = "Now input array is clean";
+    private List<Double> sortedArray = new ArrayList<Double>();
+    private List<Double> inputArray = new ArrayList<Double>();
 
-
-
+    public ViewModel() {
         inputValue = "";
         sortedArrayStringRepresentation = "";
         inputArrayStringRepresentation = "";
@@ -44,7 +40,6 @@ public class ViewModel {
     public String getElemArray() {
         return inputValue;
     }
-
 
     public void setInputValue(final String inputValue) {
         if (inputValue.equals(this.inputValue)) {
@@ -99,13 +94,13 @@ public class ViewModel {
     public final class Status {
         public static final String WAITING = "Waiting new element";
         public static final String READY = "Ready to add new element";
-        public static final String BAD_FORMAT = "Bad format. Should be double";
+        public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESSFUL = "Sort of array is successful";
 
         private Status() { }
     }
 
-    public void processingAddField() {
+    public void processingAddField(final int keyCode) {
         parseInput();
     }
 
