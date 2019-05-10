@@ -1,6 +1,6 @@
 package ru.unn.agile.RadixSorter.viewmodel;
 
-import ru.unn.agile.radixsorter.model.radixSorter;
+import ru.unn.agile.RadixSorter.model.RadixSorter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.unn.agile.radixsorter.model;
+package ru.unn.agile.RadixSorter.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
