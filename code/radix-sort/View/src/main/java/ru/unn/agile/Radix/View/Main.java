@@ -1,4 +1,4 @@
-package ru.unn.agile.radix.view;
+package ru.unn.agile.Radix.View;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,10 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application 
+{
 
     @Override
-    public void start(final Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception 
+	{
         Parent root = FXMLLoader.load(getClass().getResource("radix.fxml"));
         primaryStage.setTitle("Radix");
         primaryStage.setScene(new Scene(root));
