@@ -15,8 +15,8 @@ public class ViewModel {
     private boolean isClearButtonEnabled;
     private boolean isSortButtonEnabled;
 
-    private List<int> sortedArray = new ArrayList<int>();
-    private List<int> inputArray = new ArrayList<int>();
+    private List<Integer> sortedArray = new ArrayList<Integer>();
+    private List<Integer> inputArray = new ArrayList<Integer>();
 
     public ViewModel() {
         inputValue = "";
