@@ -9,7 +9,7 @@ public abstract class RadixSorterTest {
 
     abstract void sort(int[] arr);
 
-    private int[] newRandomArray(int num) {
+    private int[] newRandomArray(final int num) {
         Random random = new Random(0);
         int[] arr = new int[num];
         for (int i = 0; i < arr.length; ++i) {
@@ -18,7 +18,7 @@ public abstract class RadixSorterTest {
         return arr;
     }
 
-    private void sortAndVerify(int[] arr) {
+    private void sortAndVerify(final int[] arr) {
         int[] copy = arr.clone();
         Arrays.sort(copy);
         sort(arr);
@@ -26,51 +26,52 @@ public abstract class RadixSorterTest {
     }
 
     @Test
-    public void test_empty() {
+    public void testempty() {
         sortAndVerify(new int[0]);
     }
 
     @Test
-    public void test_1() {
+    public void test1() {
         sortAndVerify(new int[]{1});
     }
 
     @Test
-    public void test_1_2() {
+    public void test12() {
         sortAndVerify(new int[]{1, 2});
     }
 
     @Test
-    public void test_2_1() {
+    public void test21() {
         sortAndVerify(new int[]{2, 1});
     }
 
     @Test
-    public void test_1_2_3() {
+    public void test123() {
         sortAndVerify(new int[]{1, 2, 3});
     }
 
     @Test
-    public void test_3_2_1() {
+    public void test321() {
         sortAndVerify(new int[]{3, 2, 1});
     }
 
     @Test
-    public void test_random_10() {
+    public void testrandom10() {
         sortAndVerify(newRandomArray(10));
     }
 
     @Test
-    public void test_random_100() {
+    public void testrandom100() {
         sortAndVerify(newRandomArray(100));
     }
 
     @Test
-    public void test_random_1000() {
+    public void testrandom1000() {
         sortAndVerify(newRandomArray(1000));
     }
 
 }
+
 
 
 //public class RadixSortWithDivisionTest extends SortTest {

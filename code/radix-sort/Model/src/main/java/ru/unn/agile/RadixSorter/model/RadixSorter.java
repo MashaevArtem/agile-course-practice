@@ -1,4 +1,6 @@
+
 package ru.unn.agile.RadixSorter.model;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,39 +8,42 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class RadixSorter {
+public final class RadixSorter {
+
+    private RadixSorter() {
+    }
 
     public static final int DEFAULT_RADIX = 10;
 
-    public static void sort(int[] arr) {
+    public static void sort(final int[] arr) {
         sort(arr, DEFAULT_RADIX);
     }
 
-    public static void sort(int[] arr, int radix) {
+    public static void sort(final int[] arr, final int radix) {
         int maxDigits = 1 + (int) (Math.log(max(arr)) / Math.log(radix));
-        int divisor = 1;
+        int div = 1;
         for (int pos = 0; pos < maxDigits; ++pos) {
-            List<List<Integer>> buckets = splitToBuckets(arr, divisor, radix);
+            List<List<Integer>> buckets = splitToBuckets(arr, div, radix);
             flattenBuckets(arr, buckets);
-            divisor *= radix;
+            div *= radix;
         }
         List<List<Integer>> buckets = splitBySign(arr);
         flattenBuckets(arr, buckets);
     }
 
-    private static List<List<Integer>> splitToBuckets(int[] arr, int divisor, int radix) {
+private static List<List<Integer>> splitToBuckets(final int[] arr, final int div, final int radix) {
         List<List<Integer>> buckets = new ArrayList<>();
         for (int i = 0; i < radix; ++i) {
             buckets.add(new LinkedList<>());
         }
         for (int num : arr) {
-            int bucketIndex = Math.abs(num) / divisor % radix;
+            int bucketIndex = Math.abs(num) / div % radix;
             buckets.get(bucketIndex).add(num);
         }
         return buckets;
     }
 
-    private static List<List<Integer>> splitBySign(int[] arr) {
+    private static List<List<Integer>> splitBySign(final int[] arr) {
         List<Integer> positive = new LinkedList<>();
         List<Integer> negative = new LinkedList<>();
         for (int num : arr) {
@@ -51,7 +56,7 @@ public class RadixSorter {
         return Arrays.asList(negative, positive);
     }
 
-    private static void flattenBuckets(int[] arr, List<? extends List<Integer>> buckets) {
+ private static void flattenBuckets(final int[] arr, final List<? extends List<Integer>> buckets) {
         int i = 0;
         for (List<Integer> bucket : buckets) {
             for (int num : bucket) {
@@ -60,7 +65,7 @@ public class RadixSorter {
         }
     }
 
-    private static int max(int[] arr) {
+    private static int max(final int[] arr) {
         int max = Integer.MIN_VALUE;
         for (int num : arr) {
             if (num > max) {
