@@ -1,85 +1,72 @@
-package ru.unn.agile.radixsorter.model;
+package ru.unn.agile.RadixSorter.model;
 
-public final class RadixSorter {
-    public static <T extends Comparable<T>>
-    void sort(final T[] array) {
-        RadSorter<T> sorter = new RadSorter<T>();
-        sorter.sort(array);
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+
+public class RadixSorter {
+
+    public static final int DEFAULT_RADIX = 10;
+
+    public static void sort(int[] arr) {
+        sort(arr, DEFAULT_RADIX);
     }
 
-    private RadixSorter() {
+    public static void sort(int[] arr, int radix) {
+        int maxDigits = 1 + (int) (Math.log(max(arr)) / Math.log(radix));
+        int divisor = 1;
+        for (int pos = 0; pos < maxDigits; ++pos) {
+            List<List<Integer>> buckets = splitToBuckets(arr, divisor, radix);
+            flattenBuckets(arr, buckets);
+            divisor *= radix;
+        }
+        List<List<Integer>> buckets = splitBySign(arr);
+        flattenBuckets(arr, buckets);
     }
 
-    private static final class RadSorter<T extends Comparable<T>> {
-        public static final int MIN_ARRAY_ELEMENTS_COUNT = 1;
-
-        void sort(final T[] array) {
-            validateArray(array);
-
-            int startElementIndex = 0;
-            int endElementIndex = array.length - 1;
-            sortSubArray(array, startElementIndex, endElementIndex);
+    private static List<List<Integer>> splitToBuckets(int[] arr, int divisor, int radix) {
+        List<List<Integer>> buckets = new ArrayList<>();
+        for (int i = 0; i < radix; ++i) {
+            buckets.add(new LinkedList<>());
         }
+        for (int num : arr) {
+            int bucketIndex = Math.abs(num) / divisor % radix;
+            buckets.get(bucketIndex).add(num);
+        }
+        return buckets;
+    }
 
-        private void validateArray(final T[] array) {
-            if (array == null) {
-                throw new IllegalArgumentException("Array should be initialized");
-            }
-
-            if (array.length < MIN_ARRAY_ELEMENTS_COUNT) {
-                throw new IllegalArgumentException("Array elements count should be positive");
-            }
-
-            for (int i = 0; i < array.length; ++i) {
-                if (array[i] == null) {
-                    throw new IllegalArgumentException("Array shouldn't contain null elements");
-                }
+    private static List<List<Integer>> splitBySign(int[] arr) {
+        List<Integer> positive = new LinkedList<>();
+        List<Integer> negative = new LinkedList<>();
+        for (int num : arr) {
+            if (num >= 0) {
+                positive.add(num);
+            } else {
+                negative.add(0, num);
             }
         }
+        return Arrays.asList(negative, positive);
+    }
 
-        private void sortSubArray(final T[] array,
-                                  final int startSubArrayIndex,
-                                  final int endSubArrayIndex) {
-            T bearingElement = calculateBearingElement(array, startSubArrayIndex, endSubArrayIndex);
-
-            int currentLeftBound = startSubArrayIndex;
-            int currentRightBound = endSubArrayIndex;
-            while (currentLeftBound <= currentRightBound) {
-                while (array[currentLeftBound].compareTo(bearingElement) < 0) {
-                    ++currentLeftBound;
-                }
-
-                while (array[currentRightBound].compareTo(bearingElement) > 0) {
-                    --currentRightBound;
-                }
-
-                if (currentLeftBound <= currentRightBound) {
-                    swapTwoElementsInArray(array, currentLeftBound, currentRightBound);
-                    ++currentLeftBound;
-                    --currentRightBound;
-                }
-            }
-
-            if (currentRightBound > startSubArrayIndex) {
-                sortSubArray(array, startSubArrayIndex, currentRightBound);
-            }
-            if (currentLeftBound < endSubArrayIndex) {
-                sortSubArray(array, currentLeftBound, endSubArrayIndex);
+    private static void flattenBuckets(int[] arr, List<? extends List<Integer>> buckets) {
+        int i = 0;
+        for (List<Integer> bucket : buckets) {
+            for (int num : bucket) {
+                arr[i++] = num;
             }
         }
+    }
 
-        private T calculateBearingElement(final T[] array,
-                                          final int firstElementIndex,
-                                          final int secondElementIndex) {
-            return array[(firstElementIndex + secondElementIndex) / 2];
+    private static int max(int[] arr) {
+        int max = Integer.MIN_VALUE;
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
         }
-
-        private void swapTwoElementsInArray(final T[] array,
-                                            final int firstElementIndex,
-                                            final int secondElementIndex) {
-            T tmp = array[firstElementIndex];
-            array[firstElementIndex] = array[secondElementIndex];
-            array[secondElementIndex] = tmp;
-        }
+        return max;
     }
 }
