@@ -54,7 +54,7 @@ public class ViewModel {
             return;
         }
 
-        int value = Double.parseDouble(inputValue);
+        int value = Integer.parseInt(inputValue);
         sortedArray.add(value);
         inputArray.add(value);
         changeButtonsEnabling();
@@ -113,7 +113,7 @@ public class ViewModel {
         }
 
         try {
-            Double.parseDouble(inputValue);
+            Integer.parseInt(inputValue);
             status = Status.READY;
             isAddButtonEnabled = true;
         } catch (Exception e) {
