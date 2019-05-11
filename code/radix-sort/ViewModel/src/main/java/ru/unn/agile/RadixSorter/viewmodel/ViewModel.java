@@ -11,8 +11,8 @@ public class ViewModel {
     private String inputArrayStringRepresentation;
     private String status;
 
-    private boolean isAddButtonEnabled;
-    private boolean isClearButtonEnabled;
+    private boolean isAdButtonEnabled;
+    private boolean isCleanButtonEnabled;
     private boolean isSortButtonEnabled;
 
     private List<Integer> sortedArray = new ArrayList<Integer>();
@@ -24,12 +24,12 @@ public class ViewModel {
         inputArrayStringRepresentation = "";
         status = Status.WAITING;
 
-        isAddButtonEnabled = false;
-        isClearButtonEnabled = false;
+        isAdButtonEnabled = false;
+        isCleanButtonEnabled = false;
         isSortButtonEnabled = false;
     }
 
-    public String getSortedArrayStringRepresentation() {
+    public String getSortedArrayStringRepres() {
         return sortedArrayStringRepresentation;
     }
 
@@ -108,29 +108,29 @@ public class ViewModel {
 
         if (inputValue.isEmpty()) {
             status = Status.WAITING;
-            isAddButtonEnabled = false;
-            return isAddButtonEnabled;
+            isAdButtonEnabled = false;
+            return isAdButtonEnabled;
         }
 
         try {
             Integer.parseInt(inputValue);
             status = Status.READY;
-            isAddButtonEnabled = true;
+            isAdButtonEnabled = true;
         } catch (Exception e) {
             status = Status.BAD_FORMAT;
-            isAddButtonEnabled = false;
-            return isAddButtonEnabled;
+            isAdButtonEnabled = false;
+            return isAdButtonEnabled;
         }
 
-        return isAddButtonEnabled;
+        return isAdButtonEnabled;
     }
 
-    public boolean isAddButtonEnabled() {
-        return isAddButtonEnabled;
+    public boolean isAdButtonEnabled() {
+        return isAdButtonEnabled;
     }
 
-    public boolean isClearButtonEnabled() {
-        return isClearButtonEnabled;
+    public boolean isCleanButtonEnabled() {
+        return isCleanButtonEnabled;
     }
 
     public boolean isSortButtonEnabled() {
@@ -140,10 +140,10 @@ public class ViewModel {
     private void changeButtonsEnabling() {
         if (sortedArray.isEmpty()) {
             isSortButtonEnabled = false;
-            isClearButtonEnabled = false;
+            isCleanButtonEnabled = false;
         } else {
             isSortButtonEnabled = true;
-            isClearButtonEnabled = true;
+            isCleanButtonEnabled = true;
         }
     }
 }

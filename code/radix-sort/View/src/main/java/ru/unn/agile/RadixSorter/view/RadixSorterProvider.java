@@ -76,11 +76,11 @@ public final class RadixSorterProvider {
     }
 
     private void backBind() {
-        addElementButton.setEnabled(viewModel.isAddButtonEnabled());
+        addElementButton.setEnabled(viewModel.isAdButtonEnabled());
         sortArrayButton.setEnabled(viewModel.isSortButtonEnabled());
-        clearArrayButton.setEnabled(viewModel.isClearButtonEnabled());
+        clearArrayButton.setEnabled(viewModel.isCleanButtonEnabled());
 
-        sourceArrayLabel.setText(viewModel.getSortedArrayStringRepresentation());
+        sourceArrayLabel.setText(viewModel.getSortedArrayStringRepres());
         sortedArrayArea.setText(viewModel.getInputArrayStringRepresentation());
         statusLabel.setText(viewModel.getCurrentState());
     }
