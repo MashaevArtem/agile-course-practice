@@ -8,25 +8,21 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ViewModelTests 
-{
+public class ViewModelTests {
     private ViewModel viewModel;
 
     @Before
-    public void setUp() 
-	{
+    public void setUp() {
         viewModel = new ViewModel();
     }
 
     @After
-    public void tearDown() 
-	{
+    public void tearDown() {
         viewModel = null;
     }
 
     @Test
-    public void canSetDefaultValues() 
-	{
+    public void canSetDefaultValues() {
         assertEquals("", viewModel.getElemArray());
         assertEquals("", viewModel.getSortedArrayStringRepres());
         assertEquals("", viewModel.getInputArrayStringRepresentation());
@@ -34,8 +30,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canAddOneElementToArray() 
-	{
+    public void canAddOneElementToArray() {
         viewModel.setInputValue("3");
         viewModel.addProcess();
 
@@ -43,8 +38,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canAddSeveralElementsToArray() 
-	{
+    public void canAddSeveralElementsToArray() {
         viewModel.setInputValue("-5");
         viewModel.addProcess();
         viewModel.setInputValue("4");
@@ -56,8 +50,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canClearArray() 
-	{
+    public void canClearArray() {
         viewModel.setInputValue("7");
         viewModel.addProcess();
         viewModel.setInputValue("5");
@@ -75,46 +68,17 @@ public class ViewModelTests
     }
 
     @Test
-    public void  canSortOfArrayWithOneElement() 
-	{
-        viewModel.setInputValue("-4");
-        viewModel.addProcess();
-
-        viewModel.sort();
-
-        assertEquals("[-4]", viewModel.getSortedArrayStringRepres());
-    }
-
-    @Test
-    public void  canSortOfNonSortedBigArray() 
-	{
-        viewModel.setInputValue("-4");
-        viewModel.addProcess();
-        viewModel.setInputValue("0");
-        viewModel.addProcess();
-        viewModel.setInputValue("3");
-        viewModel.addProcess();
-
-        viewModel.sort();
-
-        assertEquals("[-4, 0, 3]", viewModel.getSortedArrayStringRepres());
-    }
-
-    @Test
-    public void  isWaitingStatusWithLaunch() 
-	{
+    public void  isWaitingStatusWithLaunch() {
         assertEquals(Status.WAITING, viewModel.getCurrentState());
     }
 
     @Test
-    public void isWaitingStatWithBeginning() 
-	{
+    public void isWaitingStatWithBeginning() {
         assertEquals(ViewModel.Status.WAITING, viewModel.getCurrentState());
     }
 
     @Test
-    public void isWaitingStateWithAddAndDelElemEmptyField() 
-	{
+    public void isWaitingStateWithAddAndDelElemEmptyField() {
         viewModel.setInputValue("");
 
         viewModel.processingAddField(1);
@@ -123,8 +87,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void isReadyStateWithAddElemFieldIsWriteIn() 
-	{
+    public void isReadyStateWithAddElemFieldIsWriteIn() {
         viewModel.setInputValue("6");
 
         viewModel.processingAddField(1);
@@ -133,8 +96,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canSetBadFormatMessage() 
-	{
+    public void canSetBadFormatMessage() {
         viewModel.setInputValue("b");
 
         viewModel.processingAddField(1);
@@ -143,8 +105,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canSetSuccessMessage() 
-	{
+    public void canSetSuccessMessage() {
         viewModel.setInputValue("-1");
         viewModel.addProcess();
         viewModel.setInputValue("2");
@@ -157,64 +118,56 @@ public class ViewModelTests
     }
 
     @Test
-    public void isAddButtonDisabledWithLaunch() 
-	{
-        assertEquals(false, viewModel.isAddButtonEnabled());
+    public void isAddButtonDisabledWithLaunch() {
+        assertEquals(false, viewModel.isAdButtonEnabled());
     }
 
     @Test
-    public void isClearButtonDisabledWithLaunch() 
-	{
-        assertEquals(false, viewModel.isClearButtonEnabled());
+    public void isClearButtonDisabledWithLaunch() {
+        assertEquals(false, viewModel.isCleanButtonEnabled());
     }
 
     @Test
-    public void isSortButtonDisabledWithLaunch() 
-	{
+    public void isSortButtonDisabledWithLaunch() {
         assertEquals(false, viewModel.isSortButtonEnabled());
     }
 
     @Test
-    public void isAddButtonEnabledAddElemFieldIsCorrect() 
-	{
+    public void isAdButtonEnabledAddElemFieldIsCorrect() {
         viewModel.setInputValue("1");
         viewModel.processingAddField(1);
 
-        assertEquals(true, viewModel.isAddButtonEnabled());
+        assertEquals(true, viewModel.isAdButtonEnabled());
     }
 
     @Test
-    public void isAddButtonDisabledWithAddElemFieldIsEmpty() 
-	{
+    public void isAddButtonDisabledWithAddElemFieldIsEmpty() {
         viewModel.setInputValue("");
         viewModel.processingAddField(1);
 
-        assertEquals(false, viewModel.isAddButtonEnabled());
+        assertEquals(false, viewModel.isAdButtonEnabled());
     }
 
     @Test
-    public void isAddButtonDisabledWithAddElemIsInvalid() 
-	{
+    public void isAddButtonDisabledWithAddElemIsInvalid() {
         viewModel.setInputValue("ijijfdf");
         viewModel.processingAddField(1);
 
-        assertEquals(false, viewModel.isAddButtonEnabled());
+        assertEquals(false, viewModel.isAdButtonEnabled());
     }
 
     @Test
-    public void isClearButtonEnabledWithArrayIsNotEmpty() 
-	{
+    public void isCleanButtonEnabledWithArrayIsNotEmpty() {
         viewModel.setInputValue("3");
         viewModel.addProcess();
         viewModel.setInputValue("8");
         viewModel.addProcess();
 
-        assertEquals(true, viewModel.isClearButtonEnabled());
+        assertEquals(true, viewModel.isCleanButtonEnabled());
     }
 
     @Test
-    public void isSortButtonEnabledWithArrayIsNotEmpty() 
-	{
+    public void isSortButtonEnabledWithArrayIsNotEmpty() {
         viewModel.setInputValue("7");
         viewModel.addProcess();
         viewModel.setInputValue("5");
@@ -223,8 +176,7 @@ public class ViewModelTests
         assertEquals(true, viewModel.isSortButtonEnabled());
     }
     @Test
-    public void isClearButtonDisabledWithClearArray() 
-	{
+    public void isClearButtonDisabledWithClearArray() {
         viewModel.setInputValue("2");
         viewModel.addProcess();
         viewModel.setInputValue("7");
@@ -234,12 +186,11 @@ public class ViewModelTests
 
         viewModel.clearProcess();
 
-        assertEquals(false, viewModel.isClearButtonEnabled());
+        assertEquals(false, viewModel.isCleanButtonEnabled());
     }
 
     @Test
-    public void isSortButtonDisabledWithClearArray() 
-	{
+    public void isSortButtonDisabledWithClearArray() {
         viewModel.setInputValue("7");
         viewModel.addProcess();
         viewModel.setInputValue("3");
@@ -255,19 +206,17 @@ public class ViewModelTests
     }
 
     @Test
-    public void isClearButtonAddOneElementEnabled() 
-	{
+    public void isClearButtonAddOneElementEnabled() {
         viewModel.setInputValue("3");
         viewModel.addProcess();
 
         viewModel.sort();
 
-        assertEquals(true, viewModel.isClearButtonEnabled());
+        assertEquals(true, viewModel.isCleanButtonEnabled());
     }
 
     @Test
-    public void canChangeStateIfAddElemFieldIsCorrect() 
-	{
+    public void canChangeStateIfAddElemFieldIsCorrect() {
         viewModel.setInputValue("tests");
         viewModel.processingAddField(1);
         viewModel.setInputValue("13");
@@ -277,8 +226,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canChangeStateIfAddElemFieldIsInvalid() 
-	{
+    public void canChangeStateIfAddElemFieldIsInvalid() {
         viewModel.setInputValue("13");
         viewModel.processingAddField(1);
         viewModel.setInputValue("tests");
@@ -288,8 +236,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canChangeStateIfAddElemFieldIsEmpty() 
-	{
+    public void canChangeStateIfAddElemFieldIsEmpty() {
         viewModel.setInputValue("13");
         viewModel.processingAddField(1);
         viewModel.setInputValue("");

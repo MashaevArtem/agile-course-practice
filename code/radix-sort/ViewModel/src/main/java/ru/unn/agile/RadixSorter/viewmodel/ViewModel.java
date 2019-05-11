@@ -73,7 +73,7 @@ public class ViewModel {
 
     public void sort() {
         int[] nativeArray = new int[sortedArray.size()];
-	     sortedArray.toArray(nativeArray);
+
 
         RadixSorter.sort(nativeArray);
 
