@@ -126,7 +126,7 @@ public class ViewModel {
     }
 
     public boolean isAdButtonEnabled() {
-        return isAdButtonEnabled;
+        return isAdButtonEnabled; 
     }
 
     public boolean isCleanButtonEnabled() {
