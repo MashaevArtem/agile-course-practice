@@ -7,7 +7,7 @@ public final class RadixSorter {
         sorter.sort(array);
     }
 
-    private ArraySorter() {
+    private RadixSorter() {
     }
 
     private static final class RadSorter<T extends Comparable<T>> {
