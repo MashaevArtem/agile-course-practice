@@ -1,4 +1,4 @@
-package ru.unn.agile.ArraySorter.viewmodel;
+package ru.unn.agile.RadixSorter.viewmodel;
 
 import java.util.List;
 
