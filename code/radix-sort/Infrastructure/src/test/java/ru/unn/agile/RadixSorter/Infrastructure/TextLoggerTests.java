@@ -23,12 +23,12 @@ public class TextLoggerTests {
     }
 
     @Test
-    public void canCreateLoggerWithFileName() {
+    public void canMakeLoggerWithFileName() {
         assertNotNull(textLogger);
     }
 
     @Test
-    public void canCreateLogFileOnDisk() {
+    public void canMakeLogFileOnDisk() {
         try {
             new BufferedReader(new FileReader(DEFAULT_FILEPATH));
         } catch (FileNotFoundException e) {
@@ -37,7 +37,7 @@ public class TextLoggerTests {
     }
 
     @Test
-    public void isDateTimeAddedToLogMessage() {
+    public void isDateTimeAddedToLogMess() {
         String testMessage = "Test message";
 
         textLogger.log(testMessage);
@@ -47,7 +47,7 @@ public class TextLoggerTests {
     }
 
     @Test
-    public void canLogMessage() {
+    public void canLogMess() {
         String testMessage = "Test message to log";
 
         textLogger.log(testMessage);
@@ -57,33 +57,33 @@ public class TextLoggerTests {
     }
 
     @Test
-    public void canLogSeveralMessages() {
-        String[] messages = {"Test #1", "Test #2", "Test #3", "Test #4"};
+    public void canLogSeveralMess() {
+        String[] mess = {"Test #1", "Test #2", "Test #3", "Test #4"};
 
-        for (int i = 0; i < messages.length; ++i) {
-            textLogger.log(messages[i]);
+        for (int i = 0; i < mess.length; ++i) {
+            textLogger.log(mess[i]);
         }
 
-        List<String> actualMessages = textLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); ++i) {
-            String message = actualMessages.get(i);
-            assertTrue(message.matches(".*" + messages[i] + "$"));
+        List<String> actualMess = textLogger.getLog();
+        for (int i = 0; i < actualMess.size(); ++i) {
+            String message = actualMess.get(i);
+            assertTrue(message.matches(".*" + mess[i] + "$"));
         }
     }
 
     @Test(expected = Test.None.class)
-    public void noThrowCtorWhenInvalidFilenameIsSpecified() {
+    public void noThrowCtorIfInvalidFilenameIsSpecified() {
         new TextLogger("");
     }
 
     @Test(expected = Test.None.class)
-    public void noThrowToLogWhenInvalidFilenameIsSpecified() {
+    public void noThrowToLogIfInvalidFilenameIsSpecified() {
         TextLogger logger = new TextLogger("");
         logger.log("hello");
     }
 
     @Test(expected = Test.None.class)
-    public void noThrowGetLogWhenInvalidFilenameIsSpecified() {
+    public void noThrowGetLogIfInvalidFilenameIsSpecified() {
         TextLogger logger = new TextLogger("");
         logger.log("hello");
         logger.getLog();

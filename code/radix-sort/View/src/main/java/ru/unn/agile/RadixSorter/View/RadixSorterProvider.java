@@ -1,5 +1,6 @@
 package ru.unn.agile.RadixSorter.view;
 
+import ru.unn.agile.RadixSorter.infrastructure.TextLogger;
 import ru.unn.agile.RadixSorter.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -7,22 +8,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public final class RadixSorterProvider {
 
     private ViewModel viewModel;
     private JPanel mainPanel;
+    private JLabel statusLabel;
     private JTextField inputValueField;
     private JButton addElementButton;
-    private JButton clearArrayButton;
     private JButton sortArrayButton;
+    private JButton clearArrayButton;
     private JTextArea sortedArrayArea;
-    private JLabel statusLabel;
     private JLabel sourceArrayLabel;
+    private JList<String> listLog;
+    private static final String FILEPATH = "ArraySorter.log";
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("RadixSorterProvider");
-        frame.setContentPane(new RadixSorterProvider(new ViewModel()).mainPanel);
+        TextLogger logger = new TextLogger(FILEPATH);
+        frame.setContentPane(new RadixSorterProvider(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -72,7 +77,7 @@ public final class RadixSorterProvider {
     }
 
     private void bind() {
-        viewModel.setInputValue(inputValueField.getText());
+        viewModel.setInputVal(inputValueField.getText());
     }
 
     private void backBind() {
@@ -81,7 +86,10 @@ public final class RadixSorterProvider {
         clearArrayButton.setEnabled(viewModel.isCleanButtonEnabled());
 
         sourceArrayLabel.setText(viewModel.getSortedArrayStringRepres());
-        sortedArrayArea.setText(viewModel.getInputArrayStringRepresentation());
-        statusLabel.setText(viewModel.getCurrentState());
+        sortedArrayArea.setText(viewModel.getInputArrayStringRepres());
+        statusLabel.setText(viewModel.getCurrState());
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        listLog.setListData(items);
     }
 }

@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ViewModel {
     private String inputValue;
-    private String sortedArrayStringRepresentation;
-    private String inputArrayStringRepresentation;
+    private String sortedArrayStringRepres;
+    private String inputArrayStringRepres;
     private String status;
 
     private boolean isAdButtonEnabled;
@@ -17,11 +17,20 @@ public class ViewModel {
 
     private List<Integer> sortedArray = new ArrayList<Integer>();
     private List<Integer> inputArray = new ArrayList<Integer>();
+    private ILogger logger;
+    public static final String ADD_LOG = "Added new element to array. The element: ";
+    public static final String CLEAR_LOG = "Input array is clean now";
 
-    public ViewModel() {
+    public ViewModel(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+
+        this.logger = logger;
+
         inputValue = "";
-        sortedArrayStringRepresentation = "";
-        inputArrayStringRepresentation = "";
+        sortedArrayStringRepres = "";
+        inputArrayStringRepres = "";
         status = Status.WAITING;
 
         isAdButtonEnabled = false;
@@ -30,18 +39,21 @@ public class ViewModel {
     }
 
     public String getSortedArrayStringRepres() {
-        return sortedArrayStringRepresentation;
+        return sortedArrayStringRepres;
     }
 
-    public String getInputArrayStringRepresentation() {
-        return inputArrayStringRepresentation;
+    public String getInputArrayStringRepres() {
+        return inputArrayStringRepres;
     }
 
-    public String getElemArray() {
+    public String getElArray() {
         return inputValue;
     }
+    public List<String> getLog() {
+        return logger.getLog();
+    }
 
-    public void setInputValue(final String inputValue) {
+    public void setInputVal(final String inputValue) {
         if (inputValue.equals(this.inputValue)) {
             return;
         }
@@ -59,7 +71,8 @@ public class ViewModel {
         inputArray.add(value);
         changeButtonsEnabling();
 
-        inputArrayStringRepresentation = sortedArray.toString();
+        inputArrayStringRepres = sortedArray.toString();
+        logger.log(ADD_LOG + inputValue);
     }
 
     public void clearProcess() {
@@ -67,8 +80,9 @@ public class ViewModel {
         inputArray.clear();
         changeButtonsEnabling();
 
-        sortedArrayStringRepresentation = sortedArray.toString();
-        inputArrayStringRepresentation = inputArray.toString();
+        sortedArrayStringRepres = sortedArray.toString();
+        inputArrayStringRepres = inputArray.toString();
+        logger.log(CLEAR_LOG);
     }
 
     public void sort() {
@@ -84,10 +98,11 @@ public class ViewModel {
         changeButtonsEnabling();
         status = Status.SUCCESSFUL;
 
-        sortedArrayStringRepresentation =  sortedArray.toString();
+        sortedArrayStringRepres =  sortedArray.toString();
+        logger.log(sortedArrayStringRepres);
     }
 
-    public String getCurrentState() {
+    public String getCurrState() {
         return status;
     }
 
@@ -119,6 +134,7 @@ public class ViewModel {
         } catch (Exception e) {
             status = Status.BAD_FORMAT;
             isAdButtonEnabled = false;
+            logger.log(status);
             return isAdButtonEnabled;
         }
 
