@@ -1,3 +1,4 @@
+package ru.unn.agile.radixsorter.model;
 import org.junit.Test;
 
 import java.util.Arrays;
