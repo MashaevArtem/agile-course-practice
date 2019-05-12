@@ -71,10 +71,3 @@ public abstract class RadixSorterTest {
     }
 
 }
-
- //class RadixSortTest extends RadixSorterTest {
- //   @Override
- //   void sort(final int[] arr) {
- //       RadixSorter.sort(arr);
- //   }
- //}
