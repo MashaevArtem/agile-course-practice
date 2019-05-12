@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':radix-sort-ViewModel')
+    testCompile project(':radix-sort-ViewModel').sourceSets.test.output
+}

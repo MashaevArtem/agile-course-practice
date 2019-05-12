@@ -1,5 +1,4 @@
-apply from:   rootDir.getAbsolutePath() + '/config/scripts/javafx.plugin'
-
 dependencies {
     compile project(':radix-sort-ViewModel')
+	compile project(':radix-sort-Infrastructure')
 }
