@@ -37,16 +37,6 @@ public class TextLoggerTests {
     }
 
     @Test
-    public void isDateTimeAddedToLogMess() {
-        String testMessage = "Test message";
-
-        textLogger.log(testMessage);
-
-        String message = textLogger.getLog().get(0);
-        assertTrue(message.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
-    }
-
-    @Test
     public void canLogMess() {
         String testMessage = "Test message to log";
 

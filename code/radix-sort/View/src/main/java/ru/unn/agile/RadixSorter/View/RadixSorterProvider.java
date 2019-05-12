@@ -54,5 +54,42 @@ public final class RadixSorterProvider {
                 backBind();
             }
         });
-	}
+
+        clearArrayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                RadixSorterProvider.this.viewModel.clearProcess();
+                backBind();
+            }
+        });
+
+        KeyAdapter keyListener = new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                bind();
+                RadixSorterProvider.this.viewModel.processingAddField(e.getKeyCode());
+                backBind();
+            }
+        };
+
+        inputValueField.addKeyListener(keyListener);
+    }
+
+    private void bind() {
+        viewModel.setInputVal(inputValueField.getText());
+    }
+
+    private void backBind() {
+        addElementButton.setEnabled(viewModel.isAdButtonEnabled());
+        sortArrayButton.setEnabled(viewModel.isSortButtonEnabled());
+        clearArrayButton.setEnabled(viewModel.isCleanButtonEnabled());
+
+        sourceArrayLabel.setText(viewModel.getSortedArrayStringRepres());
+        sortedArrayArea.setText(viewModel.getInputArrayStringRepres());
+        statusLabel.setText(viewModel.getCurrState());
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        listLog.setListData(items);
+    }
 }
