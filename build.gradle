@@ -162,15 +162,13 @@ subprojects {
         }
     }
 
-jacocoTestReport{
-    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination "${buildDir}/reports/jacoco/html"
+    jacocoTestReport {
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
     }
-    executionData = files('build/jacoco/test.exec')
-}
 }
 
 coveralls {
