@@ -38,14 +38,13 @@ public class TextLogger implements ILogger {
     @Override
     public void log(final String messToLog) {
         try {
-            writer.write(getCurrDateTime() + " >  " + messToLog);
+            writer.write(getCurrDateTime() + "  >  " + messToLog);
             writer.newLine();
             writer.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-
     @Override
     public List<String> getLog() {
         ArrayList<String> loggList = new ArrayList<>();
